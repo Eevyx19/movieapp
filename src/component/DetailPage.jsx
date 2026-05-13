@@ -4,12 +4,18 @@ import BackdropDetail from "./BackdropDetail";
 import SimilarCard from "./SimilarCard";
 import RecomendationCard from "./RecomendationCard";
 import SkeletonLoading from "./SkeletonLoading";
+import { Link, useParams } from "react-router";
+
 
 const DetailPage = ({ details, recomendation, similar, credits, images, videos, loading, type }) => {
     const [pageLoading, setPageLoading] = useState(true)
     const sliderRef = useRef(null);
     const trailerRef = useRef(null);
+    const {id} = useParams();
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [id])
 
     useEffect(() => {
         const el = sliderRef.current;
@@ -37,7 +43,7 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos, 
         if (details?.release_date) {
             return `Release Date: ${details?.release_date}`;
         }
-        if (details.first_air_date) {
+        if (details?.first_air_date) {
             return `First Date: ${details?.first_air_date}`;
         }
     }
@@ -46,6 +52,7 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos, 
         window.scrollTo({top: 0, behavior: "smooth"})
     }
 
+    
     return (
         <main className="Detail w-full bg-black">
             <section className="relative flex flex-col pb-6">
@@ -100,14 +107,14 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos, 
                     </div>
                 </div>
             </section>
-            <section className="w-full flex flex-col bg-black gap-4 px-4 md:px-16 py-4">
+            <section className="w-full flex flex-col bg-black gap-4 px-4 md:px-16 py-4 animate-slide delay-400">
                 <h1 className="text-white text-2xl font-bold">Top Cast</h1>
                 <div ref={sliderRef} className="flex overflow-hidden overflow-x-auto scroll-smooth no-scrollbar gap-4">
                     {loading && credits.length === 0 ? (
                         <SkeletonLoading cards={10} />
                     ) : (
                     credits?.slice(0, 10)?.map((item, index) => (
-                        <div key={index} className="cast-profil w-30 2xs:w-35 4xs:w-40 md:w-50 lg:w-60 shrink-0 overflow-hidden cursor-pointer">
+                        <Link to={`/Person/Details/${item.id}`} key={index} className="cast-profil w-30 2xs:w-35 4xs:w-40 md:w-50 lg:w-60 shrink-0 overflow-hidden cursor-pointer">
                             <img
                                 className="w-full rounded-xl "
                                 src={`${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.profile_path}`}
@@ -123,7 +130,7 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos, 
                                     {item?.character}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     )))}
                 </div>
             </section>

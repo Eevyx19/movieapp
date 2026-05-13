@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
-const Navbar = () => {
+const Navbar = ({ solid = false }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 40);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -40,28 +40,24 @@ const Navbar = () => {
     }, []);
 
     return (
-        <nav
-            className={`navbar fixed top-0 left-0 right-0 z-50 mx-auto flex gap-4 
-  justify-between items-center px-8 md:px-14 py-5 border-b transition-all duration-300
-
-  ${
-                "bg-gray-900 text-white border-gray-800"
-                }
-
-  ${
-                isScrolled
-                    ? "md:bg-gray-900/90 md:backdrop-blur-md md:shadow-md md:border-gray-800"
-                    : "md:bg-transparent md:border-gray-700"
-                }
+<nav
+    className={`navbar fixed top-0 left-0 right-0 z-50 mx-auto flex gap-4 justify-between items-center px-8 md:px-14 py-5 md:border-b transition-all duration-300 text-white bg-gray-900
+    ${
+        solid
+            ? "md:bg-gray-900 md:border-gray-800 md:shadow-md"
+            : isScrolled
+                ? "md:bg-gray-900/90 md:backdrop-blur-md md:shadow-md md:border-gray-800"
+                : "md:bg-transparent md:border-gray-700"
+    }
 `}
-        >
+>
             <div className="w-full flex justify-between">
                 <div className="flex items-center gap-5">
                     <div className="logo"><a href="/">Movie App</a></div>
                     <ul className="nav-links items-center hidden md:flex">
                         <li><a href="/Movies" className="px-3 py-2 hover:text-blue-500 transition duration-200">Movies</a></li>
                         <li><a href="/Tv_Series" className="px-3 py-2 hover:text-blue-500 transition duration-200">TV Series</a></li>
-                        <li><a href="/People" className="px-3 py-2 hover:text-blue-500 transition duration-200">People</a></li>
+                        <li><a href="/Person" className="px-3 py-2 hover:text-blue-500 transition duration-200">People</a></li>
                     </ul>
                 </div>
                 <div className="search-container flex items-center gap-4 relative z-10">
@@ -79,7 +75,7 @@ const Navbar = () => {
                     <ul className="flex flex-col pt-16 px-1">
                         <li><a href="/Movies" className="block w-full px-6 py-3 hover:bg-gray-700 hover:text-blue-500 transition duration-200">Movies</a></li>
                         <li><a href="/Tv_Series" className="block w-full px-6 py-3 hover:bg-gray-700 hover:text-blue-500 transition duration-200">TV Series</a></li>
-                        <li><a href="/People" className="block w-full px-6 py-3 hover:bg-gray-700 hover:text-blue-500 transition duration-200">People</a></li>
+                        <li><a href="/Person" className="block w-full px-6 py-3 hover:bg-gray-700 hover:text-blue-500 transition duration-200">People</a></li>
                     </ul>
                 </div>
             )}

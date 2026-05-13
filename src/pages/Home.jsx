@@ -7,6 +7,7 @@ import useHome from "../hooks/useHome";
 import { useContext, useMemo } from "react";
 import { GenreContext } from "../context/GenreContext";
 import OnTheAir from "../component/OnTheAir";
+import Loading from "../component/Loading";
 
 const Home = () => {
     const {allTrending, nowPlaying, onTheAir, loading, error} = useHome();
@@ -24,6 +25,7 @@ const Home = () => {
     const nowPlayingMovies = nowPlaying.slice(0, 12);
     const onTheAirTvs = onTheAir.slice(0, 12);
 
+    if(loading) return <Loading />
     if (error) return <p>Error fetching data</p>
 
     return (

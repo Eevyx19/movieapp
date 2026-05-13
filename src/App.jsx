@@ -7,6 +7,7 @@ import './App.css'
 import Movies from './pages/Movies';
 import DetailMovies from './pages/DetailMovies';
 import DetailSeries from './pages/DetailSeries';
+import DetailPerson from './pages/DetailPerson';
 
 function App() {
 
@@ -17,9 +18,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Movies" element={<Movies />} />
           <Route path="/Tv_Series" element={<TV />} />
-          <Route path ="/People" element={<People />} />
-          <Route path="/Movie/Details/:id" element={<DetailMovies />} />
+          <Route path ="/Person" element={<People />} />
+          <Route path="/Movies/Details/:id" element={<DetailMovies />} />
           <Route path="/Tv_Series/Details/:id" element={<DetailSeries />} />
+          <Route path="/Person/Details/:id" element={<DetailPerson />} />
         </Routes>
       </Router>
     </SkeletonTheme>

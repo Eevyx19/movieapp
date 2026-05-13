@@ -25,8 +25,8 @@ const useMovies = () => {
                 setPopular(popularData);
                 setTopRated(topRatedData);
                 setUpComing(upComingData);
-            } catch (err) {
-                setError(err);
+            } catch (error) {
+                setError(error);
             } finally {
                 setLoading(false);
             }

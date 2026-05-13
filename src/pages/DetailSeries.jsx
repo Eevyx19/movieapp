@@ -3,9 +3,10 @@ import Navbar from "../component/Navbar";
 import useDetailSeries from "../hooks/useDetailSeries";
 import DetailPage from "../component/DetailPage";
 import Footer from "../component/Footer";
+import Loading from "../component/Loading";
 const DetailSeries = () => {
     const {id} = useParams();
-    const {details, recomendation, similar, credits, images, videos, loading} = useDetailSeries(id);
+    const {details, recomendation, similar, credits, images, videos, loading, error} = useDetailSeries(id);
     
     const recomendationSeries = recomendation.slice(0, 10);
     const similarSeries = similar.slice(0, 10);
@@ -18,6 +19,10 @@ const DetailSeries = () => {
         videos,
         loading
     };
+    if(loading || !details) {
+        return <Loading />
+    }
+    if(error) return <p>Error Getting Data</p>
     return (
         <>
         <Navbar />

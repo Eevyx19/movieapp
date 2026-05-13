@@ -9,7 +9,7 @@ const sliderRef = useRef(null);
         movie: "Movies",
         series: "Tv_Series",
        };
-       const baseRoute = routeMap[type] || "Movie";
+       const baseRoute = routeMap[type] || "Movies";
 
     useEffect(() => {
         const el = sliderRef.current;

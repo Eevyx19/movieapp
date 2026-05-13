@@ -1,6 +1,5 @@
 import {  useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CardSkeleton from "./CardSkeleton";
 import SkeletonLoading from "./SkeletonLoading";
 const SimilarCard = ({similar, type, loading, onClickCard}) => {
 const sliderRef = useRef(null);
@@ -10,7 +9,7 @@ const sliderRef = useRef(null);
         series: "Tv_Series",
        };
 
-    const baseRoute = routeMap[type] || "Movie";
+    const baseRoute = routeMap[type] || "Movies";
 
     useEffect(() => {
         const el = sliderRef.current;

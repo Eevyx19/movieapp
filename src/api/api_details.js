@@ -132,3 +132,38 @@ export const getVideosSeries = async (id) => {
         throw error;
     }
 }
+
+//person
+export const getDetailPerson = async (id) => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/person/${id}?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const data = await response.json();
+        return data;
+    }
+    catch (error){
+        console.error('Error get Detail person data', error);
+        throw error;
+    }
+}
+export const getCombinedCreditsPerson = async (id) => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/person/${id}/combined_credits?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const data = await response.json();
+        return data.cast;
+    }
+    catch (error){
+        console.error('Error get Detail person is credits  data', error);
+        throw error;
+    }
+}
+export const getExternalIds = async (id) => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/person/${id}/external_ids?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const data = await response.json();
+        return data;
+    }
+    catch (error){
+        console.error('Error get Detail person is social media data', error);
+        throw error;
+    }
+}

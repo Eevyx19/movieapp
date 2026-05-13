@@ -163,6 +163,15 @@ export const getAiringTodayTv = async () => {
     }
 }
 
-//Details Movie
-
-//Details Series
+//Person
+export const getPopularPeople = async () => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/person/popular?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const data = await response.json();
+        return data.results
+    }
+    catch (error) {
+        console.error('Error get popular People data', error)
+        throw error;
+    }
+}

@@ -6,6 +6,7 @@ import useMovies from "../hooks/useMovies";
 import TopRated from "../component/TopRated";
 import UpComingMovies from "../component/UpComingMovies";
 import Footer from "../component/Footer"
+import Loading from "../component/Loading";
 
 const Movies = () => {
     const { trendingFix, popularFix, topRatedFix, upComingFix, loading, error } = useMovies();
@@ -15,7 +16,7 @@ const Movies = () => {
     const topRatedMovies = topRatedFix.slice(0, 12);
     const upComingMovies = upComingFix.slice(0, 12)
 
-    
+    if(loading) return <Loading />
     if (error) return <p>Error fetching data</p>
     return (
         <>

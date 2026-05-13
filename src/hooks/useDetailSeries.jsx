@@ -7,6 +7,7 @@ const useDetailSeries = (id) => {
     const [credits, setCredits] = useState([]);
     const [images, setImages] = useState([]);
     const [videos, setVideos] = useState([]);
+    const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         const fetchingDetailsSeries = async () => {
@@ -30,6 +31,7 @@ const useDetailSeries = (id) => {
 
             } catch (error) {
                 console.log("Error get data", error);
+                setError(error)
             } finally {
                 setLoading(false);
             }
@@ -38,7 +40,7 @@ const useDetailSeries = (id) => {
             fetchingDetailsSeries();
         }
     }, [id])
-    return { details, recomendation, similar, credits, images, videos, loading };
+    return { details, recomendation, similar, credits, images, videos, loading, error };
 
 
 }

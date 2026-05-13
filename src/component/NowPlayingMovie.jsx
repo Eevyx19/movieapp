@@ -9,7 +9,7 @@ const NowPlayingMovies = ({ nowPlay, loading }) => {
 
     const handleClick = (id) => {
         setActiveIndex(id);
-        navigate(`/Movie/Details/${id}`)
+        navigate(`/Movies/Details/${id}`)
     };
 
     return (

@@ -12,7 +12,7 @@ const Popular = ({ popular, loading, type }) => {
         movie: "Movies",
         series: "Tv_Series",
        };
-       const baseRoute = routeMap[type] || "Movie";
+       const baseRoute = routeMap[type] || "Movies";
 
        navigate(`/${baseRoute}/Details/${id}`)
     };
