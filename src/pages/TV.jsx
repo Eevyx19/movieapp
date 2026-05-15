@@ -1,30 +1,67 @@
-import Banner from "../component/Banner"
-import Navbar from "../component/Navbar"
+import Navbar from "../component/Layout/Navbar"
 import useSeries from "../hooks/useSeries"
-import Popular from "../component/Popular"
-import TopRated from "../component/TopRated"
-import AiringTodaySeries from "../component/AiringTodaySeries"
-import Footer from "../component/Footer"
-import Loading from "../component/Loading"
+import Footer from "../component/Layout/Footer"
+import GridCardSkeleton from "../component/Loading/GridCardSkeleton";
+import FlexCardSkeleton from "../component/Loading/FlexCardSkeleton";
+import Loading from "../component/Loading/Loading";
+import React, { Suspense } from "react";
+import { motion } from "motion/react"
+const GridCard = React.lazy(() => import("../component/LayoutCard/GridCard"));
+const FlexCard = React.lazy(() => import("../component/LayoutCard/FlexCard"));
+const Banner = React.lazy(() => import("../component/Layout/Banner"));
 
 const TV = () => {
-    const {trendingFix, popularFix, topRatedFix, airingTodayFix, loading, error} = useSeries();
-   
-    const trendingTv = trendingFix.slice(0, 7);
-    const popularTv = popularFix.slice(0, 10);
-    const topRatedTv = topRatedFix.slice(0, 12);
-    const airingTodayTv = airingTodayFix.slice(0, 12);
+    const { trendingFix, popularFix, topRatedFix, airingTodayFix, loading, error } = useSeries();
 
-    if(loading) return <Loading />
     if (error) return <p>Error getting data</p>
-    return(
+    return (
         <>
-        <Navbar />
-        <Banner trending={trendingTv} />
-        <Popular popular={popularTv} loading={loading} type="series"/>
-        <TopRated topRated={topRatedTv} loading={loading} type="series"/>
-        <AiringTodaySeries airingToday={airingTodayTv} loading={loading} />
-        <Footer />
+            <Navbar />
+            <Suspense fallback={<Loading />}>
+                <Banner trending={trendingFix.slice(0, 7)} />
+            </Suspense>
+            <section className="main-container w-full">
+                <div className="bg-gray-700 w-full px-4 py-4">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="text-2xl font-bold text-white py-2 mb-4">
+                        Popular Tv Shows
+                    </motion.h1>
+                    <Suspense fallback={<FlexCardSkeleton cards={10} />}>
+                        <FlexCard data={popularFix.slice(0, 10)} mediaType="tv" />
+                    </Suspense>
+                </div>
+                <div className="bg-gray-700 w-full px-4 py-4">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="text-2xl font-bold text-white py-2 mb-4">
+                        Top Rated Tv Shows
+                    </motion.h1>
+                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
+                        <GridCard data={topRatedFix.slice(0, 12)} mediaType="tv" />
+                    </Suspense>
+                </div>
+                <div className="bg-gray-700 w-full px-4 py-4">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        className="text-2xl font-bold text-white py-2 mb-4">
+                        Tv Shows Airing Today
+                    </motion.h1>
+                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
+                        <GridCard data={airingTodayFix.slice(0, 12)} mediaType="tv" />
+                    </Suspense>
+                </div>
+            </section>
+            <Footer />
         </>
     )
 }

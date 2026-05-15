@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/vite": "^4.2.2",
+    "motion": "^12.38.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-loading-skeleton": "^3.5.0",

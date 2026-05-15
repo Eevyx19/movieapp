@@ -1,39 +1,60 @@
-import Banner from "../component/Banner"
-import Footer from "../component/Footer";
-import Navbar from "../component/Navbar";
-import NowPlayingMovie from "../component/NowPlayingMovie";
-import TvOnTheAir from "../component/OnTheAir";
+import Footer from "../component/Layout/Footer";
+import Navbar from "../component/Layout/Navbar";
 import useHome from "../hooks/useHome";
-import { useContext, useMemo } from "react";
+import React, { Suspense, useContext, useEffect, useMemo } from "react";
 import { GenreContext } from "../context/GenreContext";
-import OnTheAir from "../component/OnTheAir";
-import Loading from "../component/Loading";
+import { motion } from "motion/react"
+import GridCardSkeleton from "../component/Loading/GridCardSkeleton";
+import Loading from "../component/Loading/Loading";
+const GridCard = React.lazy(() => import("../component/LayoutCard/GridCard"));
+const Banner = React.lazy(() => import("../component/Layout/Banner"))
 
 const Home = () => {
-    const {allTrending, nowPlaying, onTheAir, loading, error} = useHome();
+    const { allTrending, nowPlaying, onTheAir, error } = useHome();
     const genre = useContext(GenreContext)
-
-    const allTrendingHome = useMemo (() =>{
+    const allTrendingHome = useMemo(() => {
         return allTrending.map((item) => ({
             ...item,
-            genres: item.genre_ids
-            .map((id) => genre[id])
-            .filter(Boolean),
+            genres: item.genre_ids?.map((id) => genre[id])?.filter(Boolean),
         }))
-    })
+    }, [allTrending, genre])
 
-    const nowPlayingMovies = nowPlaying.slice(0, 12);
-    const onTheAirTvs = onTheAir.slice(0, 12);
-
-    if(loading) return <Loading />
     if (error) return <p>Error fetching data</p>
 
     return (
         <>
             <Navbar />
-            <Banner trending={allTrendingHome}/>
-            <NowPlayingMovie nowPlay={nowPlayingMovies} loading={loading} />
-            <OnTheAir onTheAir={onTheAirTvs} loading={loading}/>
+            <Suspense fallback={<Loading />}>
+                <Banner trending={allTrendingHome} />
+            </Suspense>
+            <section className="main-container w-full">
+                <div
+                    className="bg-gray-700 w-full px-4 py-4">
+                    <motion.h1 initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, ease: "easeOut" }} 
+                        className="text-2xl font-bold text-white py-2 mb-4">
+                        Now Playing Movies
+                    </motion.h1>
+                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
+                        <GridCard data={nowPlaying.slice(0, 12)} mediaType="movie" />
+                    </Suspense>
+                </div>
+                <div
+                    className="bg-gray-800 w-full px-4 py-4">
+                    <motion.h1 initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.5, ease: "easeOut" }} 
+                        className="text-2xl font-bold text-white py-2 mb-4">
+                        On The Air Tv Series
+                    </motion.h1>
+                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
+                        <GridCard data={onTheAir.slice(0, 12)} mediaType="tv" />
+                    </Suspense>
+                </div>
+            </section >
             <Footer />
         </>
     )

@@ -1,6 +1,6 @@
-import Loading from "../component/Loading";
-import Navbar from "../component/Navbar";
-import PopularPerson from "../component/PopularPerson";
+import Loading from "../component/Loading/Loading";
+import Navbar from "../component/Layout/Navbar";
+import PopularPerson from "../component/Layout/PopularPerson";
 import usePeople from "../hooks/usePeople";
 
 const People = () => {

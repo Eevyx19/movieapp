@@ -11,7 +11,7 @@ const PopularPerson = ({ popular }) => {
                         <Link 
                         to={`/Person/Details/${item.id}`}
                         key={index} className="h-auto">
-                            <img src={`${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.profile_path}`} alt={item?.name} className="rounded"/>
+                            <img src={`${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.profile_path}` || "/placeholder.jpg"} alt={item?.name} className="rounded"/>
                             <div className="mt-2 text-center w-full">
                                 <h2 className="text-white text-xs sm:text-sm font-semibold truncate">
                                     {item?.name}

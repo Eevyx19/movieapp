@@ -5,12 +5,10 @@ const useHome = () => {
     const [allTrending, setAllTrending] = useState([]);
     const [nowPlaying, setNowPlaying] = useState([]);
     const [onTheAir, setOnTheAir] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null); 
 
     useEffect(() => {
         const fetchingHomeData = async () => {
-            setLoading(true)
             try {
                 const [allTrendingData, nowPlayingData, onTheAirData] = await Promise.all([
                     getAllTrending(),
@@ -24,12 +22,10 @@ const useHome = () => {
             catch (error) {
                 console.log('failed fetching home data', error)
                 setError(error)
-            } finally {
-                setLoading(false);
-            }
+            } 
         }
         fetchingHomeData();
     }, [])
-    return {allTrending, nowPlaying, onTheAir, loading, error};
+    return {allTrending, nowPlaying, onTheAir, error};
 }
 export default useHome;

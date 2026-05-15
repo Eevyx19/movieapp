@@ -5,23 +5,24 @@ import TV from './pages/TV';
 import People from './pages/People'
 import './App.css'
 import Movies from './pages/Movies';
-import DetailMovies from './pages/DetailMovies';
-import DetailSeries from './pages/DetailSeries';
 import DetailPerson from './pages/DetailPerson';
+import Detail from './pages/Detail';
+import { ScrollToTop } from './component/Utilies/ScrollToTop';
+import { useEffect } from 'react';
 
 function App() {
 
   return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+    <SkeletonTheme baseColor="#6e6e6e" highlightColor="#969696">
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Movies" element={<Movies />} />
-          <Route path="/Tv_Series" element={<TV />} />
-          <Route path ="/Person" element={<People />} />
-          <Route path="/Movies/Details/:id" element={<DetailMovies />} />
-          <Route path="/Tv_Series/Details/:id" element={<DetailSeries />} />
-          <Route path="/Person/Details/:id" element={<DetailPerson />} />
+          <Route path="/movie" element={<Movies />} />
+          <Route path="/tv" element={<TV />} />
+          <Route path="/person" element={<People />} />
+          <Route path="/:mediaType/:id" element={<Detail />} />
+          <Route path="/person/:id" element={<DetailPerson />} />
         </Routes>
       </Router>
     </SkeletonTheme>

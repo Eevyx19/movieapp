@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import { getSearch } from '../api/api';
-import Navbar from "../component/Navbar";
+import Navbar from "../component/Layout/Navbar";
 import Searchbar from "../component/Searchbar";
-import Footer from '../component/Footer';
+import Footer from '../component/Layout/Footer';
 import { GenreContext } from '../context/GenreContext';
 const Search = () => {
     const [listsTemp, setListsTemp] = useState ([]);

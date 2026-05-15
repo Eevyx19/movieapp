@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 
-const BackdropDetail = ({images}) => {
+const VideoDetail = ({ videos }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const imagesMovie = images.slice(0, 10)
+    const videosMovie = videos
+        ?.filter(item => item.type === "Trailer")
+        ?.slice(0, 5) || [];
 
     const changeSlide = (newIndex) => {
         setCurrentIndex(newIndex);
@@ -11,7 +14,7 @@ const BackdropDetail = ({images}) => {
 
     const nextSlide = () => {
         changeSlide(
-            currentIndex === imagesMovie.length - 1
+            currentIndex === videosMovie.length - 1
                 ? 0
                 : currentIndex + 1
         );
@@ -20,15 +23,15 @@ const BackdropDetail = ({images}) => {
     const prevSlide = () => {
         changeSlide(
             currentIndex === 0
-                ? imagesMovie.length - 1
+                ? videosMovie.length - 1
                 : currentIndex - 1
         );
     };
-    if (!imagesMovie.length) {
+    if (!videosMovie.length) {
         return (
             <section className="video py-4 px-4 md:px-14 bg-gray-900">
                 <h2 className="text-white text-2xl font-bold">
-                    Backdrop not available
+                    Video not available
                 </h2>
             </section>
         );
@@ -36,9 +39,14 @@ const BackdropDetail = ({images}) => {
 
     return (
         <section className="video py-4 px-4 md:px-14 bg-gray-900">
-            <div className="relative flex flex-col mt-4 gap-4">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="relative flex flex-col mt-4 gap-4">
                 <h2 className="text-white text-2xl font-bold">
-                    Backdrops
+                    Trailer
                 </h2>
                 <div className="overflow-hidden w-full flex justify-center ">
 
@@ -47,14 +55,14 @@ const BackdropDetail = ({images}) => {
                         style={{
                             transform: `translateX(-${currentIndex * 100}%)`
                         }}>
-                        {imagesMovie.map((item, index) => (
+                        {videosMovie.map((item, index) => (
                             <div
                                 key={index}
                                 className="w-full shrink-0 flex justify-center "
                             >
-                                <div className=" w-full h-full">
-                                    <img className=" w-full h-full rounded-xl"
-                                        src={`${import.meta.env.VITE_API_IMAGE_BACKDROP}/${item.file_path}`}
+                                <div className=" w-full aspect-video ">
+                                    <iframe className=" w-full h-full rounded-xl"
+                                        src={`https://www.youtube-nocookie.com/embed/${item?.key}`}
                                         frameBorder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
@@ -67,7 +75,7 @@ const BackdropDetail = ({images}) => {
                 </div>
 
                 <div className="indicator flex justify-center gap-2">
-                    {imagesMovie.map((_, i) => (
+                    {videosMovie.map((_, i) => (
                         <button
                             key={i}
                             onClick={() => changeSlide(i)}
@@ -79,20 +87,23 @@ const BackdropDetail = ({images}) => {
 
                 <button
                     onClick={prevSlide}
-                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md border border-white/20 text-[12px] 4xs:text-[16px] md:text-base h-6 4xs:h-8 md:h-10 w-6 4xs:w-8 md:w-10 flex items-center justify-center text-white rounded-full"
+                    className="absolute left-2  md:left-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md border border-white/20 text-[12px] 4xs:text-[16px] md:text-base h-6 4xs:h-8 md:h-10 w-6 4xs:w-8 md:w-10 flex items-center justify-center text-white rounded-full
+                    "
                 >
                     ‹
                 </button>
 
                 <button
                     onClick={nextSlide}
-                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md border border-white/20 text-[12px] 4xs:text-[16px] md:text-base h-6 4xs:h-8 md:h-10 w-6 4xs:w-8 md:w-10 flex items-center justify-center text-white rounded-full"
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md border border-white/20 text-[12px] 4xs:text-[16px] md:text-base h-6 4xs:h-8 md:h-10 w-6 4xs:w-8 md:w-10 flex items-center justify-center text-white rounded-full
+                    "
                 >
                     ›
                 </button>
 
-            </div>
+            </motion.div>
         </section>
     );
-}
-export default BackdropDetail;
+};
+
+export default VideoDetail;

@@ -108,3 +108,15 @@ body {
     translate: 0 -10px;
   }
 }
+
+.animate-reveal {
+  opacity: 0;
+  transform: translateY(50px) scale(0.5);
+  animation: reveal 0.5s ease forwards;
+}
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

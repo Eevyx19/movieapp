@@ -1,22 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import VideoDetail from "./VideoDetail";
 import BackdropDetail from "./BackdropDetail";
-import SimilarCard from "./SimilarCard";
-import RecomendationCard from "./RecomendationCard";
-import SkeletonLoading from "./SkeletonLoading";
+import FlexCardSkeleton from "../Loading/FlexCardSkeleton";
 import { Link, useParams } from "react-router";
+import React, { Suspense } from "react";
+import { motion } from "motion/react";
+const FlexCard = React.lazy(() => import("../LayoutCard/FlexCard"));
 
 
-const DetailPage = ({ details, recomendation, similar, credits, images, videos, loading, type }) => {
-    const [pageLoading, setPageLoading] = useState(true)
+const DetailPage = ({ details, recomendation, similar, credits, images, videos }) => {
+    const { id, mediaType } = useParams();
     const sliderRef = useRef(null);
     const trailerRef = useRef(null);
-    const {id} = useParams();
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [id])
-
+    
     useEffect(() => {
         const el = sliderRef.current;
         if (!el) return;
@@ -48,22 +45,18 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos, 
         }
     }
 
-    const scrollToTop = () => {
-        window.scrollTo({top: 0, behavior: "smooth"})
-    }
-
-    
     return (
         <main className="Detail w-full bg-black">
             <section className="relative flex flex-col pb-6">
                 <div className="relative w-full h-72 md:h-96 animate-slide delay-300">
                     <img src={`${import.meta.env.VITE_API_IMAGE_BACKDROP}/${details?.backdrop_path}`} alt={details?.title || details?.name} className="w-full h-full object-cover object-center" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-l from-black/60 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-l from-black/60 to-transparent" />
                 </div>
                 <div className="poster-detail relative -mt-40 flex flex-col md:flex-row items-center md:items-start px-4 md:px-16 md:gap-6 animate-slide delay-300">
-                    <img src={`${import.meta.env.VITE_API_IMAGE_BACKDROP}/${details?.poster_path}`} alt="" className="w-48 md:w-72 rounded-xl shadow-2xl" />
+                    <img src={details?.poster_path
+                        ? `${import.meta.env.VITE_API_IMAGE_BACKDROP}/${details?.poster_path}` : "/empty-image.jpg"} alt={details?.title || details?.name} className="w-48 md:w-72 rounded-xl shadow-2xl" />
                     <div className="description flex-1 min-w-0 py-6 flex flex-col gap-2">
                         <h1 className="title text-2xl sm:text-3xl md:text-5xl font-bold text-white">{details?.title || details?.name}</h1>
                         <div className="rating text-sm sm:text-base flex gap-2 delay-200">
@@ -110,36 +103,59 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos, 
             <section className="w-full flex flex-col bg-black gap-4 px-4 md:px-16 py-4 animate-slide delay-400">
                 <h1 className="text-white text-2xl font-bold">Top Cast</h1>
                 <div ref={sliderRef} className="flex overflow-hidden overflow-x-auto scroll-smooth no-scrollbar gap-4">
-                    {loading && credits.length === 0 ? (
-                        <SkeletonLoading cards={10} />
-                    ) : (
-                    credits?.slice(0, 10)?.map((item, index) => (
-                        <Link to={`/Person/Details/${item.id}`} key={index} className="cast-profil w-30 2xs:w-35 4xs:w-40 md:w-50 lg:w-60 shrink-0 overflow-hidden cursor-pointer">
-                            <img
-                                className="w-full rounded-xl "
-                                src={`${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.profile_path}`}
-                                alt=""
-                            />
+                    {
+                        credits?.slice(0, 10)?.map((item, index) => (
+                            <Link to={`/person/${item.id}`} key={index} className="cast-profil w-40 md:w-50 lg:w-55 shrink-0 overflow-hidden cursor-pointer">
+                                <img
+                                    className="w-full h-60 md:h-70 lg:h-80 rounded-xl "
+                                    src={item?.profile_path
+                                        ? `${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.profile_path}` : "/no_avatar.jpg"}
+                                    alt=""
+                                />
 
-                            <div className="mt-2 text-center w-full">
-                                <h2 className="text-white text-xs sm:text-sm font-semibold truncate">
-                                    {item?.name}
-                                </h2>
+                                <div className="mt-2 text-center w-full">
+                                    <h2 className="text-white text-xs sm:text-sm font-semibold truncate">
+                                        {item?.name}
+                                    </h2>
 
-                                <p className="text-gray-400 text-xs text-center whitespace-normal break-words leading-tight">
-                                    {item?.character}
-                                </p>
-                            </div>
-                        </Link>
-                    )))}
+                                    <p className="text-gray-400 text-xs text-center whitespace-normal wrap-break-word leading-tight">
+                                        {item?.character}
+                                    </p>
+                                </div>
+                            </Link>
+                        ))}
                 </div>
             </section>
             <div ref={trailerRef}>
                 <VideoDetail videos={videos} />
             </div>
             <BackdropDetail images={images} />
-            <SimilarCard similar={similar} loading={loading} type={type} onClickCard={scrollToTop}/>
-            <RecomendationCard recomendation={recomendation} loading={loading} type={type} onClickCard={scrollToTop}/>
+            <div className="bg-gray-700 w-full px-4 py-4">
+                <motion.h2
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="text-2xl font-bold text-white py-2">
+                    You May Also Like
+                </motion.h2>
+                <Suspense fallback={<FlexCardSkeleton cards={10} />}>
+                    <FlexCard data={similar} mediaType={mediaType} />
+                </Suspense>
+            </div>
+            <div className="bg-gray-700 w-full px-4 py-4">
+                <motion.h2
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="text-2xl font-bold text-white py-2">
+                    Recomendation
+                </motion.h2>
+                <Suspense fallback={<FlexCardSkeleton cards={10} />}>
+                    <FlexCard data={recomendation} mediaType={mediaType} />
+                </Suspense>
+            </div>
         </main>
     )
 }

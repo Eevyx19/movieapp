@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { Link } from "react-router";
 
 const DetailPersonPage = ({ detail, credits, social }) => {
+    console.log(credits)
     const sliderRef = useRef(null)
         useEffect(() => {
         const el = sliderRef.current;
@@ -32,11 +33,13 @@ const DetailPersonPage = ({ detail, credits, social }) => {
 
     return (
         <section className="container-detail w-full min-h-screen bg-gray-200">
-            <div className="w-full min-h-screen grid grid-cols-1 md:grid-cols-2 text-black px-4 md:px-10 pt-20 gap-4">
-                <div className="person flex flex-col items-center md:items-center px-2 gap-4">
+            <div className="w-full min-h-screen grid grid-cols-1 md:grid-cols-2 text-black px-4 md:px-10 pt-25 gap-4">
+                <div className="person w-full flex flex-col items-center md:items-center px-2 gap-4">
                     <img
                         className="w-40 sm:w-60 md:w-80 rounded shadow-xl animate-slide delay-100"
-                        src={`${import.meta.env.VITE_API_IMAGE_POSTER}/${detail?.profile_path}`}
+                        src={
+                            detail?.profile_path ?
+                            `${import.meta.env.VITE_API_IMAGE_POSTER}/${detail?.profile_path}` : "/placeholder.jpg"}
                         alt={detail?.name}
                     />
                     <h2 className="text-2xl font-bold md:hidden animate-slide delay-200">
@@ -70,6 +73,14 @@ const DetailPersonPage = ({ detail, credits, social }) => {
                                 </p>
                                 <p className="text-sm text-gray-700 animate-slide delay-700">
                                     {detail?.birthday}
+                                </p>
+                            </div>
+                            <div className="personal-info">
+                                <p className="text-lg font-semibold animate-slide delay-600">
+                                    Also Known As
+                                </p>
+                                <p className="text-sm text-gray-700 animate-slide delay-700 flex flex-col">
+                                    {detail?.also_known_as}
                                 </p>
                             </div>
 
@@ -127,12 +138,12 @@ const DetailPersonPage = ({ detail, credits, social }) => {
                         </div>
                     </div>
                 </div>
-                <div className="biography flex flex-col gap-4">
+                <div className="biography w-full flex flex-col gap-4">
                     <h1 className="hidden md:block text-4xl font-bold animate-slide">{detail?.name}</h1>
                     <h2 className="text-2xl font-bold animate-slide delay-200">
                         Biography
                     </h2>
-                    <p className="text-gray-800 leading-7 text-justify animate-slide delay-300">
+                    <p className="text-gray-800 text-justify wrap-break-word animate-slide delay-300">
                         {detail?.biography || "No biography available."}
                     </p>
 
@@ -141,19 +152,21 @@ const DetailPersonPage = ({ detail, credits, social }) => {
                         {[...credits]
                             .sort((a, b) => b.vote_average - a.vote_average)
                             .slice(0, 10)
-                            .map((item, index) => (
+                            .map((item) => (
 
                                 <Link
                                     to={item?.media_type === "movie"
-                                        ? `/Movies/Details/${item.id}`
-                                        : `/Tv_Series/Details/${item.id}`
+                                        ? `/movie/${item?.id}`
+                                        : `/tv/${item?.id}`
                                     }
-                                    key={index}
-                                    className="w-40 md:w-50 lg:w-60 shrink-0"
+                                    key={item?.id}
+                                    className="w-30 md:w-35 lg:w-45 shrink-0"
                                 >
                                     <img
-                                        className="w-full h-62 md:h-86 object-cover rounded-lg"
-                                        src={`${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.poster_path}`}
+                                        className="w-full h-45 md:h-55 lg:h-65 object-cover rounded-lg"
+                                        src={item?.poster_path 
+                                            ? `${import.meta.env.VITE_API_IMAGE_POSTER}/${item?.poster_path}` 
+                                            : "/empty-image.jpg"}
                                         alt={item?.title || item?.name}
                                     />
 
