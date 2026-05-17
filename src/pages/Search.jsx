@@ -3,32 +3,38 @@ import { getSearch } from '../api/api';
 import Navbar from "../component/Layout/Navbar";
 import Searchbar from "../component/Searchbar";
 import Footer from '../component/Layout/Footer';
-import { GenreContext } from '../context/GenreContext';
 const Search = () => {
-    const [listsTemp, setListsTemp] = useState ([]);
-    const [moviesLists, setMoviesLists] = useState ([]);
-    const genre = useContext(GenreContext);
+    const [resultLists, setResultLists] = useState([]);
+    const [searchValue, setSearchValue] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleOnSearch = async (value) => {
-        const search = await getSearch(value)
-        setListsTemp(search)
+        setSearchValue(value);
     }
-
     useEffect(() => {
-    const result = listsTemp?.map(movie => ({
-        ...movie,
-        genres: movie.genre_ids
-            ?.map(id => genre[id])
-            .filter(Boolean)
-            .join(", ")
-    }));
+        if(searchValue.trim() === ""){
+            setResultLists([]);
+            return;
+        }
+        setLoading(true);
+        const debounceSearch = setTimeout(async () => {
+            try {
+                const resultsData = await getSearch(searchValue);
+                setResultLists(resultsData);
+            } catch(error) {
+                console.error('Error fetching search results:', error);
+            } finally {
+                setLoading(false);
+            }
+        }, 700);
+        return () => clearTimeout(debounceSearch);
+    }, [searchValue])
 
-    setMoviesLists(result);
-}, [listsTemp, genre]);
+
     return (
         <>
-            <Navbar />
-            <Searchbar results={moviesLists} onSearchChange={handleOnSearch}/>
+            <Navbar solid />
+            <Searchbar results={resultLists} loading={loading} onSearchChange={handleOnSearch} />
             <Footer />
         </>
     )

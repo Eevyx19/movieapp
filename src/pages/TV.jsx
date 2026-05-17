@@ -43,8 +43,8 @@ const TV = () => {
                         className="text-2xl font-bold text-white py-2 mb-4">
                         Top Rated Tv Shows
                     </motion.h1>
-                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
-                        <GridCard data={topRatedFix.slice(0, 12)} mediaType="tv" />
+                    <Suspense fallback={<GridCardSkeleton cards={10} />}>
+                        <GridCard data={topRatedFix.slice(0, 10)} mediaType="tv" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -56,8 +56,8 @@ const TV = () => {
                         className="text-2xl font-bold text-white py-2 mb-4">
                         Tv Shows Airing Today
                     </motion.h1>
-                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
-                        <GridCard data={airingTodayFix.slice(0, 12)} mediaType="tv" />
+                    <Suspense fallback={<GridCardSkeleton cards={10} />}>
+                        <GridCard data={airingTodayFix.slice(0, 10)} mediaType="tv" />
                     </Suspense>
                 </div>
             </section>

@@ -1,16 +1,17 @@
 import Loading from "../component/Loading/Loading";
 import Navbar from "../component/Layout/Navbar";
-import PopularPerson from "../component/Layout/PopularPerson";
+import MoreCard from "../component/LayoutCard/MoreCard";
 import usePeople from "../hooks/usePeople";
+import Footer from "../component/Layout/Footer";
 
 const People = () => {
-    const {popular, loading, error} = usePeople();
-    if (loading) return <Loading />
+    const {popular, error} = usePeople();
     if (error) return <p>Error Getting data</p>
     return (
         <>
         <Navbar solid/>
-        <PopularPerson popular={popular} loading={loading} />
+        <MoreCard data={popular} title="Popular People"/>
+        <Footer />
         </>
     )
 }

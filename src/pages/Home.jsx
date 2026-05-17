@@ -37,8 +37,8 @@ const Home = () => {
                         className="text-2xl font-bold text-white py-2 mb-4">
                         Now Playing Movies
                     </motion.h1>
-                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
-                        <GridCard data={nowPlaying.slice(0, 12)} mediaType="movie" />
+                    <Suspense fallback={<GridCardSkeleton cards={10} />}>
+                        <GridCard data={nowPlaying.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
                 <div
@@ -50,8 +50,8 @@ const Home = () => {
                         className="text-2xl font-bold text-white py-2 mb-4">
                         On The Air Tv Series
                     </motion.h1>
-                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
-                        <GridCard data={onTheAir.slice(0, 12)} mediaType="tv" />
+                    <Suspense fallback={<GridCardSkeleton cards={10} />}>
+                        <GridCard data={onTheAir.slice(0, 10)} mediaType="tv" />
                     </Suspense>
                 </div>
             </section >

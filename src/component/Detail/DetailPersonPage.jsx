@@ -153,7 +153,6 @@ const DetailPersonPage = ({ detail, credits, social }) => {
                             .sort((a, b) => b.vote_average - a.vote_average)
                             .slice(0, 10)
                             .map((item) => (
-
                                 <Link
                                     to={item?.media_type === "movie"
                                         ? `/movie/${item?.id}`

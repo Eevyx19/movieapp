@@ -16,7 +16,7 @@ export const getNowPlayingMovies = async () => {
         return data.results
     }
     catch (error) {
-        console.log('Error fetching now playing movies'.error)
+        console.log('Error fetching now playing movies:', error)
         throw error;
     }
 };
@@ -27,7 +27,7 @@ export const getOnTheAir = async () => {
         return data.results
     }
     catch (error) {
-        console.log('Error fetching Tv Airing Today'.error)
+        console.log('Error fetching Tv Airing Today:', error)
         throw error;
     }
 }

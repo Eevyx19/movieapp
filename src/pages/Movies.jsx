@@ -47,8 +47,8 @@ const Movies = () => {
                         className="text-2xl font-bold text-white py-2 mb-4">
                         Top Rated Movies
                     </motion.h1>
-                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
-                        <GridCard data={topRatedFix.slice(0, 12)} mediaType="movie" />
+                    <Suspense fallback={<GridCardSkeleton cards={10} />}>
+                        <GridCard data={topRatedFix.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -59,8 +59,8 @@ const Movies = () => {
                         className="text-2xl font-bold text-white py-2 mb-4">
                         Upcoming Movies
                     </motion.h1>
-                    <Suspense fallback={<GridCardSkeleton cards={12} />}>
-                        <GridCard data={upComingFix.slice(0, 12)} mediaType="movie" />
+                    <Suspense fallback={<GridCardSkeleton cards={10} />}>
+                        <GridCard data={upComingFix.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
             </section>

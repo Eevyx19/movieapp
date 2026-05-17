@@ -7,6 +7,7 @@ import './App.css'
 import Movies from './pages/Movies';
 import DetailPerson from './pages/DetailPerson';
 import Detail from './pages/Detail';
+import Search from './pages/Search';
 import { ScrollToTop } from './component/Utilies/ScrollToTop';
 import { useEffect } from 'react';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/movie" element={<Movies />} />
           <Route path="/tv" element={<TV />} />
           <Route path="/person" element={<People />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/:mediaType/:id" element={<Detail />} />
           <Route path="/person/:id" element={<DetailPerson />} />
         </Routes>

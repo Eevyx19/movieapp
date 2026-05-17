@@ -26,12 +26,12 @@ const DetailSkeleton = () => {
     return (
         <main className="Detail w-full bg-black">
             {/* Backdrop Section */}
-            <section className="relative flex flex-col pb-6">
+            <section className="relative flex flex-col h-screen pb-6">
                 <div className="relative w-full h-72 md:h-96">
                 </div>
 
                 {/* Poster and Details Section */}
-                <div className="poster-detail relative -mt-40 flex flex-col md:flex-row items-center md:items-start px-4 md:px-16 md:gap-6">
+                <div className="poster-detail relative mt-40 md:-mt-40 flex flex-col md:flex-row items-center md:items-start px-4 md:px-16 gap-6">
                     <div className="w-48 md:w-72 rounded-xl overflow-hidden shadow-2xl">
                         <Skeleton height="100%" width="100%" className="aspect-2/3" />
                     </div>
