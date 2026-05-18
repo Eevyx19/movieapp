@@ -37,7 +37,7 @@ export const getTrendingMovies = async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/trending/movie/day?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
-        return data.results;
+        return data;
     }
     catch (error) {
         console.error('Error fetching trending movies:', error);
@@ -49,7 +49,7 @@ export const getPopularMovies = async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/popular?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
-        return data.results;
+        return data;
     }
     catch (error) {
         console.error('Error fetching popular movies:', error);
@@ -61,7 +61,7 @@ export const getTopRatedMovies = async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/top_rated?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
-        return data.results;
+        return data;
     }
     catch (error) {
         console.error('Error fetching top rated movies:', error);
@@ -73,7 +73,7 @@ export const getUpcomingMovies = async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/upcoming?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
-        return data.results;
+        return data;
     }
     catch (error) {
         console.error('Error fetching upcoming movies:', error);
@@ -164,11 +164,11 @@ export const getAiringTodayTv = async () => {
 }
 
 //Person
-export const getPopularPeople = async () => {
+export const getPopularPeople = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/person/popular?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/person/popular?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
-        return data.results
+        return data
     }
     catch (error) {
         console.error('Error get popular People data', error)

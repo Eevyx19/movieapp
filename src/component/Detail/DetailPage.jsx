@@ -58,7 +58,7 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos }
                     <img src={details?.poster_path
                         ? `${import.meta.env.VITE_API_IMAGE_BACKDROP}/${details?.poster_path}` : "/empty-image.jpg"} alt={details?.title || details?.name} className="w-48 md:w-72 rounded-xl shadow-2xl" />
                     <div className="description flex-1 min-w-0 py-6 flex flex-col gap-2">
-                        <h1 className="title text-2xl sm:text-3xl md:text-5xl font-bold text-white">{details?.title || details?.name}</h1>
+                        <h1 className="title text-2xl sm:text-3xl md:text-5xl font-bold text-white break-words whitespace-normal">{details?.title || details?.name}</h1>
                         <div className="rating text-sm sm:text-base flex gap-2 delay-200">
                             <p className="text-yellow-500">
                                 ★{" "}
@@ -103,8 +103,7 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos }
             <section className="w-full flex flex-col bg-black gap-4 px-4 md:px-16 py-4 animate-slide delay-400">
                 <h1 className="text-white text-2xl font-bold">Top Cast</h1>
                 <div ref={sliderRef} className="flex overflow-hidden overflow-x-auto scroll-smooth no-scrollbar gap-4">
-                    {
-                        credits?.slice(0, 10)?.map((item, index) => (
+                    {credits?.slice(0, 10)?.map((item, index) => (
                             <Link to={`/person/${item.id}`} key={index} className="cast-profil w-40 md:w-50 lg:w-55 shrink-0 overflow-hidden cursor-pointer">
                                 <img
                                     className="w-full h-60 md:h-70 lg:h-80 rounded-xl "
@@ -114,11 +113,11 @@ const DetailPage = ({ details, recomendation, similar, credits, images, videos }
                                 />
 
                                 <div className="mt-2 text-center w-full">
-                                    <h2 className="text-white text-xs sm:text-sm font-semibold truncate">
+                                <h2 className="text-white text-xs sm:text-sm font-semibold break-words whitespace-normal leading-tight">
                                         {item?.name}
                                     </h2>
 
-                                    <p className="text-gray-400 text-xs text-center whitespace-normal wrap-break-word leading-tight">
+                                    <p className="text-gray-400 text-xs text-center whitespace-normal break-words leading-tight">
                                         {item?.character}
                                     </p>
                                 </div>

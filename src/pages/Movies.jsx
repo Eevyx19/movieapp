@@ -13,7 +13,7 @@ const FlexCard = React.lazy(() => import("../component/LayoutCard/FlexCard"));
 const Banner = React.lazy(() => import("../component/Layout/Banner"));
 
 const Movies = () => {
-    const { trendingFix, popularFix, topRatedFix, upComingFix, error } = useMovies();
+    const { trendingFix, popular, topRated, upComing, error } = useMovies();
 
 
     if (error) return <p>Error fetching data</p>
@@ -35,7 +35,7 @@ const Movies = () => {
                         Popular Movies
                     </motion.h1>
                     <Suspense fallback={<FlexCardSkeleton cards={10} />}>
-                        <FlexCard data={popularFix.slice(0, 10)} mediaType="movie" />
+                        <FlexCard data={popular.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -48,7 +48,7 @@ const Movies = () => {
                         Top Rated Movies
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
-                        <GridCard data={topRatedFix.slice(0, 10)} mediaType="movie" />
+                        <GridCard data={topRated.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -60,7 +60,7 @@ const Movies = () => {
                         Upcoming Movies
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
-                        <GridCard data={upComingFix.slice(0, 10)} mediaType="movie" />
+                        <GridCard data={upComing.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
             </section>

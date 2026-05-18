@@ -18,6 +18,7 @@ const Search = () => {
         }
         setLoading(true);
         const debounceSearch = setTimeout(async () => {
+            setLoading(true);
             try {
                 const resultsData = await getSearch(searchValue);
                 setResultLists(resultsData);

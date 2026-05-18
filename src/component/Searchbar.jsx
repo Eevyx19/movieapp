@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React  from "react";
 import SearchSkeletonCard from "./Loading/SearchSkeltonCard";
-const SearchCard = React.lazy(() => import("./Cards/SearchCard"));
+import SearchCard from "./Cards/SearchCard";
 
-const Searchbar = ({ onSearchChange, results }) => {
+const Searchbar = ({ onSearchChange, results, loading }) => {
+    console.log(loading)
     const movies = results?.filter((item) => item?.media_type === "movie");
     const tv = results?.filter((item) => item?.media_type === "tv");
     return (
@@ -14,20 +15,22 @@ const Searchbar = ({ onSearchChange, results }) => {
                         <input onChange={({ target }) => onSearchChange(target.value)} type="text" placeholder="Search..." className="w-full md:w-[80%] border-0 border-b border-gray-400 text-white text-lg placeholder:text-gray-400 focus:outline-none focus:border-blue-500 px-4 py-2" />
                     </div>
                 </div>
-                <h1 className="col-span-full text-xl font-semibold text-start text-white mb-4">{movies.length > 0 ? "Top Movies Results" : ""}</h1>
-                <Suspense fallback={<SearchSkeletonCard cards={20} />}>
+                <h2 className="col-span-full text-xl font-semibold text-start text-white mb-4">{movies.length > 0 ? "Top Movies Results" : ""}</h2>
+                {loading ? <SearchSkeletonCard cards={8} /> : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                         {movies?.map((item) => (
                             <SearchCard key={item?.id} item={item} />
                         ))}
                     </div>
-                </Suspense>
+                    )}
                 <h1 className="col-span-full text-xl font-semibold text-start text-white mb-4 pt-10">{tv.length > 0 ? "Top TV Series Results" : ""}</h1>
-                <div className="container-results grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                    {tv?.map((item) => (
-                        <SearchCard key={item?.id} item={item} />
-                    ))}
-                </div>
+                {loading ? <SearchSkeletonCard cards={8} /> : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                        {tv?.map((item) => (
+                            <SearchCard key={item?.id} item={item} />
+                        ))}
+                    </div>
+                )}
             </div>
         </>
     )
