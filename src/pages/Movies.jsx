@@ -1,20 +1,17 @@
-import { getPopularMovies, getTrendingMovies } from "../api/api";
 import Navbar from "../component/Layout/Navbar";
-import useMovies from "../hooks/useMovies";
 import Footer from "../component/Layout/Footer"
-import { useParams } from "react-router";
 import React, { Suspense } from "react";
 import GridCardSkeleton from "../component/Loading/GridCardSkeleton";
 import FlexCardSkeleton from "../component/Loading/FlexCardSkeleton";
 import Loading from "../component/Loading/Loading";
 import { motion } from "motion/react"
+import useMedia from "../hooks/useMedia";
 const GridCard = React.lazy(() => import("../component/LayoutCard/GridCard"));
 const FlexCard = React.lazy(() => import("../component/LayoutCard/FlexCard"));
 const Banner = React.lazy(() => import("../component/Layout/Banner"));
 
 const Movies = () => {
-    const { trendingFix, popular, topRated, upComing, error } = useMovies();
-
+    const { media, error } = useMedia()
 
     if (error) return <p>Error fetching data</p>
 
@@ -22,7 +19,7 @@ const Movies = () => {
         <>
             <Navbar />
             <Suspense fallback={<Loading />}>
-                <Banner trending={trendingFix.slice(0, 7)} />
+                <Banner trending={media.movies.trending.slice(0, 7)} />
             </Suspense>
             <section className="main-container w-full">
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -35,7 +32,7 @@ const Movies = () => {
                         Popular Movies
                     </motion.h1>
                     <Suspense fallback={<FlexCardSkeleton cards={10} />}>
-                        <FlexCard data={popular.slice(0, 10)} mediaType="movie" />
+                        <FlexCard data={media.movies.popular.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -48,7 +45,7 @@ const Movies = () => {
                         Top Rated Movies
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
-                        <GridCard data={topRated.slice(0, 10)} mediaType="movie" />
+                        <GridCard data={media.movies.topRated.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -60,7 +57,7 @@ const Movies = () => {
                         Upcoming Movies
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
-                        <GridCard data={upComing.slice(0, 10)} mediaType="movie" />
+                        <GridCard data={media.movies.upComing.slice(0, 10)} mediaType="movie" />
                     </Suspense>
                 </div>
             </section>

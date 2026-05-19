@@ -1,24 +1,24 @@
 import Navbar from "../component/Layout/Navbar"
-import useSeries from "../hooks/useSeries"
 import Footer from "../component/Layout/Footer"
 import GridCardSkeleton from "../component/Loading/GridCardSkeleton";
 import FlexCardSkeleton from "../component/Loading/FlexCardSkeleton";
 import Loading from "../component/Loading/Loading";
 import React, { Suspense } from "react";
 import { motion } from "motion/react"
+import useMedia from "../hooks/useMedia";
 const GridCard = React.lazy(() => import("../component/LayoutCard/GridCard"));
 const FlexCard = React.lazy(() => import("../component/LayoutCard/FlexCard"));
 const Banner = React.lazy(() => import("../component/Layout/Banner"));
 
 const TV = () => {
-    const { trendingFix, popularFix, topRatedFix, airingTodayFix, loading, error } = useSeries();
+    const {media, error} = useMedia()
 
     if (error) return <p>Error getting data</p>
     return (
         <>
             <Navbar />
             <Suspense fallback={<Loading />}>
-                <Banner trending={trendingFix.slice(0, 7)} />
+                <Banner trending={media.tv.trending.slice(0, 7)} />
             </Suspense>
             <section className="main-container w-full">
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -31,7 +31,7 @@ const TV = () => {
                         Popular Tv Shows
                     </motion.h1>
                     <Suspense fallback={<FlexCardSkeleton cards={10} />}>
-                        <FlexCard data={popularFix.slice(0, 10)} mediaType="tv" />
+                        <FlexCard data={media.tv.popular.slice(0, 10)} mediaType="tv" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -44,7 +44,7 @@ const TV = () => {
                         Top Rated Tv Shows
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
-                        <GridCard data={topRatedFix.slice(0, 10)} mediaType="tv" />
+                        <GridCard data={media.tv.topRated.slice(0, 10)} mediaType="tv" />
                     </Suspense>
                 </div>
                 <div className="bg-gray-700 w-full px-4 py-4">
@@ -57,7 +57,7 @@ const TV = () => {
                         Tv Shows Airing Today
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
-                        <GridCard data={airingTodayFix.slice(0, 10)} mediaType="tv" />
+                        <GridCard data={media.tv.airing.slice(0, 10)} mediaType="tv" />
                     </Suspense>
                 </div>
             </section>

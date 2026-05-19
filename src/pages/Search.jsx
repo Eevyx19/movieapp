@@ -14,6 +14,7 @@ const Search = () => {
     useEffect(() => {
         if(searchValue.trim() === ""){
             setResultLists([]);
+            setLoading(false)
             return;
         }
         setLoading(true);

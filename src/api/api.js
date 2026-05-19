@@ -33,9 +33,9 @@ export const getOnTheAir = async () => {
 }
 
 //Movies
-export const getTrendingMovies = async () => {
+export const getTrendingMovies = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/trending/movie/day?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/trending/movie/day?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
         return data;
     }
@@ -45,9 +45,9 @@ export const getTrendingMovies = async () => {
     }
 }
 
-export const getPopularMovies = async () => {
+export const getPopularMovies = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/popular?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/popular?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
         return data;
     }
@@ -57,9 +57,9 @@ export const getPopularMovies = async () => {
     }
 };
 
-export const getTopRatedMovies = async () => {
+export const getTopRatedMovies = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/top_rated?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/top_rated?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
         return data;
     }
@@ -69,9 +69,9 @@ export const getTopRatedMovies = async () => {
     }
 }
 
-export const getUpcomingMovies = async () => {
+export const getUpcomingMovies = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/upcoming?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/movie/upcoming?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`);
         const data = await response.json();
         return data;
     }
@@ -118,44 +118,44 @@ export const getSearch = async (value) => {
 }
 
 //Tv Series
-export const getTrendingTv = async () => {
+export const getTrendingTv = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/trending/tv/day?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/trending/tv/day?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`)
         const data = await response.json();
-        return data.results
+        return data
     }
     catch (error) {
         console.error('Error get trending Tv data', error);
         throw error;
     }
 }
-export const getPopularTv = async () => {
+export const getPopularTv = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/tv/popular?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/tv/popular?language=en-US&&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`)
         const data = await response.json();
-        return data.results
+        return data
     }
     catch (error) {
         console.error('Error get popular tv data', error);
         throw error;
     }
 }
-export const getTopRatedTv = async () => {
+export const getTopRatedTv = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/tv/top_rated?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/tv/top_rated?language=en-US&&page=${page}api_key=${import.meta.env.VITE_API_KEY}`)
         const data = await response.json();
-        return data.results
+        return data
     }
     catch (error) {
         console.error('Error get top rated Tv data', error);
         throw error;
     }
 }
-export const getAiringTodayTv = async () => {
+export const getAiringTodayTv = async (page) => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/tv/airing_today?language=en-US&api_key=${import.meta.env.VITE_API_KEY}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL_BASE}/tv/airing_today?language=en-US&page=${page}&api_key=${import.meta.env.VITE_API_KEY}`)
         const data = await response.json();
-        return data.results
+        return data
     }
     catch (error) {
         console.error('Error get airing today Tv data', error);
