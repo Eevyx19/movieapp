@@ -32,9 +32,9 @@ const Home = () => {
                     className="bg-gray-700 w-full px-4 py-4">
                     <motion.h1 initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true, margin: "-40px" }}
                         transition={{ duration: 0.5, ease: "easeOut" }} 
-                        className="text-2xl font-bold text-white py-2 mb-4">
+                        className="text-2xl font-bold text-white py-2 my-2">
                         Now Playing Movies
                     </motion.h1>
                     <Suspense fallback={<GridCardSkeleton cards={10} />}>
@@ -45,7 +45,7 @@ const Home = () => {
                     className="bg-gray-800 w-full px-4 py-4">
                     <motion.h1 initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true, margin: "-40px" }}
                         transition={{ duration: 0.5, ease: "easeOut" }} 
                         className="text-2xl font-bold text-white py-2 mb-4">
                         On The Air Tv Series

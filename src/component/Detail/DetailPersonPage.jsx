@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import { Link } from "react-router";
 
 const DetailPersonPage = ({ detail, credits, social }) => {
-    console.log(credits)
     const sliderRef = useRef(null)
         useEffect(() => {
         const el = sliderRef.current;

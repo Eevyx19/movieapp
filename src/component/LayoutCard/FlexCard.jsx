@@ -26,7 +26,7 @@ const FlexCard = ({ data, mediaType }) => {
         <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             ref={sliderRef} className="flex flex-nowrap overflow-x-scroll scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] gap-2 py-2">
             {data.map(item => (

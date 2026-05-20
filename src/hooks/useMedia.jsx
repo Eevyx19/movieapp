@@ -4,7 +4,7 @@ import { GenreContext } from "../context/GenreContext";
 import { useSearchParams } from "react-router";
 
 const mediaServices = {
-    movies: {
+    movie: {
         trending: getTrendingMovies,
         popular: getPopularMovies,
         topRated: getTopRatedMovies,
@@ -20,16 +20,16 @@ const mediaServices = {
 
 const useMedia = () => {
     const [media, setMedia] = useState({
-        movies: {},
+        movie: {},
         tv: {}
     })
 
     const [totalPages, setTotalPages] = useState({
-        movies: {},
+        movie: {},
         tv: {}
     })
 
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [error, setError] = useState(null);
     const genre = useContext(GenreContext);
 
@@ -74,11 +74,11 @@ const useMedia = () => {
                     .filter(Boolean),
             }));
         return {
-            movies: {
-                trending: formatGenres(media.movies.trending),
-                popular: formatGenres(media.movies.popular),
-                topRated: formatGenres(media.movies.topRated),
-                upComing: formatGenres(media.movies.upComing),
+            movie: {
+                trending: formatGenres(media.movie.trending),
+                popular: formatGenres(media.movie.popular),
+                topRated: formatGenres(media.movie.topRated),
+                upComing: formatGenres(media.movie.upComing),
             },
             tv: {
                 trending: formatGenres(media.tv.trending),
@@ -88,8 +88,11 @@ const useMedia = () => {
             }
         }
     }, [media, genre])
-
-    return { media: formattedMedia, totalPages, error };
+    
+    const setPage = (newPage) => {
+        setSearchParams({page: newPage})
+    }
+    return { media: formattedMedia, page, setPage, totalPages, error };
 
 }
 export default useMedia;

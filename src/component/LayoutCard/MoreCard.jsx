@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 import React, { Suspense, useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "motion/react";
 import ViewCardSkeleton from "../Loading/ViewCardSkeleton";
 const ViewCard = React.lazy(() => import("../Cards/ViewCard"));
@@ -26,18 +28,27 @@ const MoreCard = ({ data, page, setPage, totalPages, title }) => {
     };
 
     useEffect(() => {
-            window.scrollTo(0, 0);
-        }, [page]);
+        window.scrollTo(0, 0);
+    }, [page]);
 
     return (
         <section className="container-people w-full min-h-screen bg-gray-600">
             <div className="pt-20 md:pt-30 px-4 md:px-14">
+                <div className="flex items-center gap-1 text-sm text-gray-300 pb-2">
+                    <Link to="/" className="hover:text-white">
+                        <FontAwesomeIcon icon={faHouse} /> Home
+                    </Link>
+                    <span>/</span>
+                    <Link to={"/person"} className="hover:text-white capitalize"
+                    >person
+                    </Link>
+                </div>
                 <h1 className="text-white font-bold text-base sm:text-2xl md:text-3xl sm:mb-4 md:mb-10 animate-slide delay-100">{title}</h1>
                 <Suspense fallback={<ViewCardSkeleton cards={20} />}>
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
+                        viewport={{ once: true, margin: "-40px" }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                         className="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2 py-2 pb-6">
                         {data?.map((item) => (
@@ -45,29 +56,47 @@ const MoreCard = ({ data, page, setPage, totalPages, title }) => {
                         ))}
                     </motion.div>
                 </Suspense>
-                <div className="text-white py-6">
-                    <h2 className="text-center">Page {page}/{totalPages}</h2>
-                    <div className="flex justify-center gap-1">
-                        {getPages().map((p, i) =>
-                            p === "..." ? (
-                                <span key={i} className="px-2 text-gray-400">
-                                    ..
-                                </span>
-                            ) : (
-                                <button
-                                    key={i}
-                                    onClick={() => setPage(p)}
-                                    className={`px-3 py-1 rounded-lg ${page === p
+                {data.length > 0 && (
+                    <div className="text-white py-6">
+                        <h2 className="text-center">Page {page}/{totalPages}</h2>
+                        <div className="flex justify-center gap-0 py-4 mt-auto">
+                            <button
+                                disabled={page === 1}
+                                onClick={() => setPage(page - 1)}
+                                className={`text-xl px-2 transition-colors ${page === 1 ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                                    : "bg-blue-600 text-white hover:bg-blue-700"
+                                    }`}>
+                                ‹
+                            </button>
+                            {getPages().map((p, i) =>
+                                p === "..." ? (
+                                    <span key={i} className="px-2 text-gray-400">
+                                        ..
+                                    </span>
+                                ) : (
+                                    <button
+                                        key={i}
+                                        onClick={() => setPage(p)}
+                                        className={`px-3 py-1 ${page === p
                                             ? "bg-blue-600 text-white "
-                                        : "bg-gray-800 text-sm hover:bg-gray-700"
-                                        }`}
-                                >
-                                    {p}
-                                </button>
-                            )
-                        )}
+                                            : "bg-gray-800 text-sm hover:bg-gray-700"
+                                            }`}
+                                    >
+                                        {p}
+                                    </button>
+                                )
+                            )}
+                            <button
+                                disabled={page === totalPages}
+                                onClick={() => setPage(page + 1)}
+                                className={`text-xl px-2 transition-colors ${page === totalPages ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                                    : "bg-blue-600 text-white hover:bg-blue-700"
+                                    }`}>
+                                ›
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </section>
     )

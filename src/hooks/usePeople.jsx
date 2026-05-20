@@ -7,11 +7,13 @@ const usePeople = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [error, setError] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [loading, setLoading] = useState(false)
 
     const page = Number(searchParams.get("page")) || 1;
 
     useEffect(() => {
         const fetchingData = async () => {
+            setLoading(true)
             try {
                 const popularData = await getPopularPeople(page);
                 setPopular(popularData.results);
@@ -20,6 +22,8 @@ const usePeople = () => {
             } catch(error) {
                 console.error('error getting data', error);
                 setError(error);
+            } finally {
+                setLoading(false)
             }
         }
         fetchingData();
@@ -30,6 +34,6 @@ const usePeople = () => {
         setSearchParams({page: newPage})
     }
 
-    return {popular, page, setPage, totalPages, error};
+    return {popular, loading, page, setPage, totalPages, error};
 }
 export default usePeople

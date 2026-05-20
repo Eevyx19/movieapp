@@ -10,6 +10,7 @@ import Detail from './pages/Detail';
 import Search from './pages/Search';
 import { ScrollToTop } from './component/Utilies/ScrollToTop';
 import { useEffect } from 'react';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/person" element={<People />} />
           <Route path="/search" element={<Search />} />
           <Route path="/:mediaType/:id" element={<Detail />} />
+          <Route path="/:mediaType/category/:category" element={<CategoryPage />} />
           <Route path="/person/:id" element={<DetailPerson />} />
         </Routes>
       </Router>
