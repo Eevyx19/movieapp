@@ -17,6 +17,9 @@ const CategoryPage = () => {
     const data = media[mediaType]?.[category] || [];
     const totalPagination = Math.min(totalPages[mediaType]?.[category] || 0, 500);
 
+    console.log(category    )
+
+    console.log(media)
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -53,7 +56,7 @@ const CategoryPage = () => {
         <>
             <Navbar solid />
             <section className="w-full min-h-screen text-white bg-gray-600 mx-auto">
-                <div className="w-full flex flex-col px-4 py-4 pt-20">
+                <div className="w-full flex flex-col px-4 py-4 pt-10">
                     <div className="flex items-center gap-1 text-sm text-gray-300 pb-2 animate-slide delay-100">
                         <Link to="/" className="hover:text-white">
                             <FontAwesomeIcon icon={faHouse} /> Home
@@ -65,16 +68,16 @@ const CategoryPage = () => {
                         >
                             {getLabel(mediaType)}
                         </Link>
-
                         <span>/</span>
-
-                        <span className="text-white capitalize">
-                            {category}
+                        <span className="text-white">
+                            {category
+                                .replace(/_/g, " ")
+                                .replace(/\b\w/g, (char) => char.toUpperCase())}
                         </span>
                     </div>
                     <h1 className="text-white text-2xl font-bold pb-4 animate-slide delay-200">{category
-                        .replace(/([A-Z])/g, " $1")
-                        .replace(/^./, (str) => str.toUpperCase())} {getLabel(mediaType)}</h1>
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (char) => char.toUpperCase())}</h1>
                     <Suspense fallback={<CategorySkeleton cards={20} />}>
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}

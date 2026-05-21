@@ -15,7 +15,7 @@ const useHome = () => {
                     getNowPlayingMovies(),
                     getOnTheAir()
                 ])
-                setAllTrending(allTrendingData.slice(0, 10));
+                setAllTrending(allTrendingData);
                 setNowPlaying(nowPlayingData);
                 setOnTheAir(onTheAirData);
             }

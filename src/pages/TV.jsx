@@ -37,8 +37,8 @@ const TV = () => {
                         </Suspense>
                         <Link
                             to={`/tv/category/${category}`}
-                            className="text-white text-base text-center underline hover:text-blue-500 transition-colors">
-                            View More...
+                            className="text-white text-base text-center underline hover:text-blue-500 transition-colors pt-2">
+                            More...
                         </Link>
                     </div>
                 ))}
@@ -51,16 +51,16 @@ const TV = () => {
                             transition={{ duration: 0.5, ease: "easeOut" }}
                             className="text-2xl font-bold text-white py-2">
                             {category
-                                .replace(/([A-Z])/g, " $1")
-                                .replace(/^./, (str) => str.toUpperCase())} Tv Shows
+                                .replace(/_/g, " ")
+                                .replace(/\b\w/g, (char) => char.toUpperCase())} Tv Shows
                         </motion.h1>
                         <Suspense fallback={<GridCardSkeleton cards={10} />}>
                             <GridCard data={tv.slice(0, 10)} mediaType="tv" />
                         </Suspense>
                         <Link
                             to={`/tv/category/${category}`}
-                            className="text-white text-base text-center underline hover:text-blue-500 transition-colors">
-                            View More...
+                            className="text-white text-base text-center underline hover:text-blue-500 transition-colors pt-2">
+                            More...
                         </Link>
                     </div>
                 ))}

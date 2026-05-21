@@ -62,12 +62,12 @@ const BannerMovies = ({ trending }) => {
     const currentMovie = trending[currentIndex]
 
     return (
-        <section className="movies-container w-full h-screen mx-auto">
+        <section className="movies-container w-full h-full mx-auto">
             <div onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
-                className="hero-section w-full h-screen overflow-hidden">
-                <div className="content-hero relative w-full h-screen">
+                className="hero-section w-full h-[550px] md:h-[635px] overflow-hidden">
+                <div className="content-hero relative w-full h-[550px] md:h-[635px]">
                     <div className="absolute inset-0 ">
                         <img
                             key={currentMovie?.backdrop_path}
@@ -79,14 +79,13 @@ const BannerMovies = ({ trending }) => {
                         />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
-                    <div key={currentIndex} className="relative w-full h-screen px-6 md:px-12">
-                        <div className="h-1/3 badge-hero flex items-center justify-between text-white pt-20">
-                            <h3 className="bg-gray-800 px-3 py-1 rounded-full text-xs md:text-sm border border-white/10 backdrop-blur-sm ">TRENDING</h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/100 to-transparent" />
+                    <div key={currentIndex} className="relative w-full h-full px-6 md:px-12">
+                        <div className="h-1/3 badge-hero flex items-center justify-between text-white pt-0">
+                            <h3 className="bg-gray-800 px-3 py-1 rounded-full text-xs md:text-sm border border-white/10 backdrop-blur-sm  -pt-10">TRENDING</h3>
                         </div>
                         <div className="main-content w-full h-2/3 flex flex-col justify-center max-w-2xl">
-
                             <div>
                                 <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold text-white animate-slide delay-200">
                                     {currentMovie?.title?.toUpperCase() || currentMovie?.name?.toUpperCase()}
@@ -138,7 +137,7 @@ const BannerMovies = ({ trending }) => {
                             </Link>
                         </div>
                     </div>
-                    <div className="indicator absolute bottom-4 right-0 left-0 flex justify-center items-center gap-2 text-white">
+                    <div className="indicator absolute bottom-3 right-0 left-0 flex justify-center items-center gap-2 text-white">
                         {trending.map((_, i) => (
                             <button key={i} onClick={() => changeSlide(i)} className={`h-2 rounded-full transition-all duration-300 ease-in-out ${i === currentIndex ? "w-4 bg-white scale-110" : "w-2 bg-gray-400 scale-100"}`}></button>
                         ))}

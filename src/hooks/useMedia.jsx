@@ -7,14 +7,14 @@ const mediaServices = {
     movie: {
         trending: getTrendingMovies,
         popular: getPopularMovies,
-        topRated: getTopRatedMovies,
-        upComing: getUpcomingMovies
+        top_rated: getTopRatedMovies,
+        upcoming: getUpcomingMovies
     },
     tv: {
         trending: getTrendingTv,
         popular: getPopularTv,
-        topRated: getPopularTv,
-        airing: getAiringTodayTv
+        top_rated: getPopularTv,
+        airing_today: getAiringTodayTv
     }
 }
 
@@ -77,14 +77,14 @@ const useMedia = () => {
             movie: {
                 trending: formatGenres(media.movie.trending),
                 popular: formatGenres(media.movie.popular),
-                topRated: formatGenres(media.movie.topRated),
-                upComing: formatGenres(media.movie.upComing),
+                top_rated: formatGenres(media.movie.top_rated),
+                upcoming: formatGenres(media.movie.upcoming),
             },
             tv: {
                 trending: formatGenres(media.tv.trending),
                 popular: formatGenres(media.tv.popular),
-                topRated: formatGenres(media.tv.topRated),
-                airing: formatGenres(media.tv.airing)
+                top_rated: formatGenres(media.tv.top_rated),
+                airing_today: formatGenres(media.tv.airing_today)
             }
         }
     }, [media, genre])

@@ -4,7 +4,7 @@ const Card = ({ item, mediaType }) => {
     return (
         <Link
             to={`/${mediaType}/${item?.id}`}
-            className="group relative rounded-xl overflow-hidden cursor-pointer transform transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/50 active:scale-95"
+            className="group relative rounded-xl overflow-hidden shadow-md shadow-black cursor-pointer transform transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/100 active:scale-95"
         >
             <div className="absolute left-2 top-2 z-10">
                 <p className="text-xs sm:text-sm text-yellow-400 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-lg">

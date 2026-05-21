@@ -3,7 +3,6 @@ import SearchSkeletonCard from "./Loading/SearchSkeltonCard";
 import SearchCard from "./Cards/SearchCard";
 
 const Searchbar = ({ onSearchChange, results, loading }) => {
-    console.log(loading)
     const movies = results?.filter((item) => item?.media_type === "movie");
     const tv = results?.filter((item) => item?.media_type === "tv");
     return (

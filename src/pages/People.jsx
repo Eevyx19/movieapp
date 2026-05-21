@@ -1,6 +1,5 @@
 import Loading from "../component/Loading/Loading";
 import Navbar from "../component/Layout/Navbar";
-import MoreCard from "../component/LayoutCard/MoreCard";
 import usePeople from "../hooks/usePeople";
 import Footer from "../component/Layout/Footer";
 import CategorySkeleton from "../component/Loading/CategorySkeleton";
@@ -41,7 +40,7 @@ const People = () => {
         <>
             <Navbar solid />
             <section className="container-people w-full min-h-screen bg-gray-600">
-                <div className="pt-20 md:pt-30 px-4 md:px-14">
+                <div className="pt-12 px-4 md:px-14">
                     <div className="flex items-center gap-1 text-sm text-gray-300 pb-2 animation-slide delay-100">
                         <Link to="/" className="hover:text-white">
                             <FontAwesomeIcon icon={faHouse} /> Home
@@ -121,7 +120,6 @@ const People = () => {
                     )}
                 </div>
             </section>
-            {/* <MoreCard data={popular} page={page} setPage={setPage} totalPages={totalPages} title="Popular People"/> */}
             <Footer />
         </>
     )
