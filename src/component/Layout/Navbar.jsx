@@ -77,9 +77,9 @@ const Navbar = ({ solid = false }) => {
                     <li><Link to="/person" className={`transition-colors duration-200 ${location.pathname.startsWith("/person") ? "text-blue-400 border-b-2 border-blue-400 pb-1" : "hover:text-blue-400"}`}>People</Link></li>
                 </ul>
                 <div className="flex items-center gap-4">
-                    <a href="/search">
+                    <Link to="/search">
                         <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
-                    </a>
+                    </Link>
                     <button
                         ref={buttonRef}
                         onClick={() => setIsMenuOpen((prev) => !prev)}
