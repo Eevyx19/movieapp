@@ -13,9 +13,9 @@ const Footer = () => {
                         <p>Discover Movie, Tv Shows or even People in Movieapp. <br />Keep control of everything you watch</p>
                     </div>
                     <div className="social flex justify-center gap-4 pt-2">
-                        <a href=""><FontAwesomeIcon icon={faGithub} /></a>
-                        <a href=""><FontAwesomeIcon icon={faInstagram} /></a>
-                        <a href=""><FontAwesomeIcon icon={faTiktok} /></a>
+                        <a href="https://github.com/Eevyx19"><FontAwesomeIcon icon={faGithub} /></a>
+                        <a href="https://instagram.com/eevyx00"><FontAwesomeIcon icon={faInstagram} /></a>
+                        <a href="https://tiktok.com/@eevyx43"><FontAwesomeIcon icon={faTiktok} /></a>
                     </div>
                 </div>
                 <div className="browse flex flex-col items-start md:items-center py-6 px-4 text-white">
@@ -28,7 +28,7 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className="search flex flex-col items-start md:items-center py-6 px-4 text-white">
-                    <h2 className="text-2xl text-blue-500 py-2">Search</h2><Link to="/Search"><FontAwesomeIcon icon={faSearch} /> Search </Link>
+                    <h2 className="text-2xl text-blue-500 py-2">Search</h2><Link to="/search"><FontAwesomeIcon icon={faSearch} /> Search </Link>
                 </div>
             </div>
             <div className="production flex flex-col sm:flex-row justify-around border-t-2 border-gray-500 text-center text-sm text-white py-4">
