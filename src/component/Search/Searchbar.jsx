@@ -1,6 +1,6 @@
 import React  from "react";
-import SearchSkeletonCard from "./Loading/SearchSkeltonCard";
-import SearchCard from "./Cards/SearchCard";
+import SearchSkeletonCard from "../Loading/SearchSkeltonCard";
+import SearchCard from "../Cards/SearchCard";
 
 const Searchbar = ({ onSearchChange, results, loading }) => {
     const movies = results?.filter((item) => item?.media_type === "movie");

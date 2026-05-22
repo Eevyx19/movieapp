@@ -1,37 +1,40 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router';
+import { faGithub, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
     return (
-        <footer className="footer w-full px-4 md:px-14 bg-gray-900">
-            <div className="container-footer grid grid-cols-2 md:grid-cols-4 justify-center items-center">
-                <div className="browse py-6 text-white">
+        <footer className="container-footer w-full px-4 md:px-14 bg-gray-900">
+            <div className="footer grid grid-cols-2 md:grid-cols-3 justify-center gap-2">
+                <div className="col-span-2 sm:col-span-3 md:col-auto caption py-6 text-center text-white mx-10 sm:mx-0">
+                    <h2 className="text-2xl py-2"><span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold">Movieapp</span></h2>
+                    <div className="w-full">
+                        <p>Discover Movie, Tv Shows or even People in Movieapp. <br />Keep control of everything you watch</p>
+                    </div>
+                    <div className="social flex justify-center gap-4 pt-2">
+                        <a href=""><FontAwesomeIcon icon={faGithub} /></a>
+                        <a href=""><FontAwesomeIcon icon={faInstagram} /></a>
+                        <a href=""><FontAwesomeIcon icon={faTiktok} /></a>
+                    </div>
+                </div>
+                <div className="browse flex flex-col items-start md:items-center py-6 px-4 text-white">
                     <h2 className="text-2xl text-blue-500 py-2">Browse</h2>
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Movie</a></li>
-                        <li><a href="">Tv Series</a></li>
-                        <li><a href="">Company</a></li>
+                        <li><Link to={"/"}>Home</Link></li>
+                        <li><Link to={"/movie"}>Movie</Link></li>
+                        <li><Link to={"/tv"}>TV Shows</Link></li>
+                        <li><Link to={"/person"}>People</Link></li>
                     </ul>
                 </div>
-                <div className="media-social py-6 text-white">
-                    <h2 className="text-2xl text-blue-500 py-2">Social Media</h2>
-                    <ul>
-                        <li><a href="">GitHub</a></li>
-                        <li><a href="">Instagram</a></li>
-                        <li><a href="">TikTok</a></li>
-                    </ul>
-                </div>
-                <div className="search py-6 text-white">
-                    <h2 className="text-2xl text-blue-500 py-2">Search</h2>
-                    <button className="md:block text-white text-xl cursor-pointer hover:text-blue-500 px-2"><a href="/Search"><FontAwesomeIcon icon={faSearch} /> Search </a>
-                    </button>
+                <div className="search flex flex-col items-start md:items-center py-6 px-4 text-white">
+                    <h2 className="text-2xl text-blue-500 py-2">Search</h2><Link to="/Search"><FontAwesomeIcon icon={faSearch} /> Search </Link>
                 </div>
             </div>
-            <div className="production flex flex-col sm:flex-row justify-around border-t-2 border-gray-500 text-center text-white py-4">
-                    <h2>Powered by TMDB</h2>
-                    <h2>©️moviereact 2026</h2>
-                    <h2>Terms of Use</h2>
+            <div className="production flex flex-col sm:flex-row justify-around border-t-2 border-gray-500 text-center text-sm text-white py-4">
+                <h2>Powered by <a className="underline" href="https://developer.themoviedb.org/docs/getting-started">TMDB</a></h2>
+                <h2>©️2026 movieapp. All rights reserved</h2>
+                <a className="underline" href="#">Terms of Use</a>
             </div>
         </footer>
     )

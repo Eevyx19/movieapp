@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { getSearch } from '../api/api';
 import Navbar from "../component/Layout/Navbar";
-import Searchbar from "../component/Searchbar";
+import Searchbar from "../component/Search/Searchbar";
 import Footer from '../component/Layout/Footer';
 const Search = () => {
     const [resultLists, setResultLists] = useState([]);
