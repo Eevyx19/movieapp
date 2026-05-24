@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import emailjs from "@emailjs/browser"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faMailBulk, faMessage } from "@fortawesome/free-solid-svg-icons";
@@ -6,21 +6,29 @@ import { faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
 
 const Contact = () => {
     const form = useRef();
-    const sendMessages = (e) => {
+    const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false)
+    const sendMessages = async (e) => {
         e.preventDefault();
-        emailjs.sendForm(
-            import.meta.env.VITE_API_EMAIL_SERVICE_ID,
-            import.meta.env.VITE_API_EMAIL_TEMPLATE_ID,
-            form.current,
-            import.meta.env.VITE_API_EMAIL_KEY
-        )
-            .then(() => {
-                alert("Message sent");
-            })
-            .catch((error) => {
-                alert("Failed to send message");
-                console.log(error.text);
-            });
+        setStatus("sending")
+        setLoading(true)
+        try {
+            await emailjs.sendForm(
+                import.meta.env.VITE_API_EMAIL_SERVICE_ID,
+                import.meta.env.VITE_API_EMAIL_TEMPLATE_ID,
+                form.current,
+                import.meta.env.VITE_API_EMAIL_KEY
+            )
+            setStatus("success");
+            form.current.reset();
+            setTimeout(() => {
+                setStatus("")
+            }, 2000)
+        } catch (error) {
+            setStatus("error")
+        } finally {
+            setLoading(false)
+        }
     };
     return (
         <div className="bg-gradient-to-t md:bg-gradient-to-r from-gray-900 to-blue-800 text-white mt-6 py-6 rounded-lg shadow-xl">
@@ -40,7 +48,7 @@ const Contact = () => {
                             <a href="https://instagram.com/eevyx00"><FontAwesomeIcon icon={faInstagram} /> eevyx00</a>
                         </p>
                         <p className="text-justify mb-10">
-                            <a href="https://tiktok.com/@eevyx43"><FontAwesomeIcon icon={faTiktok} /> eevyx34</a>
+                            <a href="https://tiktok.com/@eevyx43"><FontAwesomeIcon icon={faTiktok} /> eevyx43</a>
                         </p>
                     </div>
                 </div>
@@ -85,9 +93,23 @@ const Contact = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 hover:bg-blue-600 transition-colors duration-300 py-3 rounded-lg font-semibold shadow-lg shadow-blue-500/30">
-                        Send Message
+                        disabled={loading}
+                        className={`w-full py-3 rounded-lg font-semibold shadow-lg
+                        ${loading ? "bg-gray-500 cursor-not-allowed"
+                                : "bg-blue-500 hover:bg-blue-600 shadow-blue-500/30"}`}>
+                        {loading ? "Sending..." : "Send Message"}
+
                     </button>
+                    {status === "success" && (
+                        <p className="mt-2 text-center text-green-400">
+                            ✅ Message sent successfully!
+                        </p>
+                    )}
+                    {status === "error" && (
+                        <p className="mt-2 text-red-400">
+                            ❌ Failed to send message.
+                        </p>
+                    )}
                 </form>
             </div>
         </div>

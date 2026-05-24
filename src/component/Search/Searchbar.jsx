@@ -7,7 +7,7 @@ const Searchbar = ({ onSearchChange, results, loading }) => {
     const tv = results?.filter((item) => item?.media_type === "tv");
     return (
         <>
-            <div className="flex-col items-center justify-center text-center w-full min-h-screen py-20 px-6 gap-10 bg-dark overflow-auto">
+            <div className="flex-col items-center justify-center text-center w-full min-h-screen py-10 px-6 gap-10 bg-dark overflow-auto">
                 <div className="container-search w-full flex-col item-center justify-center mb-10">
                     <h1 className="p-2 mb-2 text-xl text-white">Search Movie or Series</h1>
                     <div className="relative">

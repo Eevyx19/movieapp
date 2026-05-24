@@ -95,7 +95,7 @@ const Navbar = ({ solid = false }) => {
             <div
                 ref={menuRef}
                 className={`absolute left-0 right-0 top-full bg-gray-900 md:hidden overflow-hidden transition-all duration-300
-                ${isMenuOpen ? "h-34 opacity-100" : "max-h-0 opacity-0"}`}>
+                ${isMenuOpen ? "h-40 opacity-100" : "max-h-0 opacity-0"}`}>
                 <ul className="flex flex-col">
                     <li><Link className={`transition-colors duration-200 ${location.pathname.startsWith("/movie") ? "px-10 text-blue-400 border-b-2 border-blue-400 pb-1" : "block px-6 py-3"}`} to="/movie">Movies</Link></li>
                     <li><Link className={`transition-colors duration-200 ${location.pathname.startsWith("/tv") ? "px-10 text-blue-400 border-b-2 border-blue-400 pb-1" : "block px-6 py-3"}`} to="/tv">TV Shows</Link></li>
